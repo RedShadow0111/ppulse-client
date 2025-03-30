@@ -16,5 +16,27 @@ pm2 save
 pm2 startup
 
 # (Если команда выше предлагает команду для запуска, выполните её)
-
+#клоинрование проекта на сервер
 git clone git@github.com:RedShadow0111/ppulse-client.git
+
+#Обновление файлов на сервере
+# 1. Перейдите в папку проекта
+cd ppulse-client
+
+# 2. Получите изменения из GitHub
+git pull origin main  # или ваша ветка (master/develop и т.д.)
+
+# 3. Установите зависимости (если нужно)
+npm install  # или yarn, pnpm
+
+# 4. Перестройте проект (для Next.js/Nuxt и т.д.)
+npm run build
+
+# 5. Перезапустите приложение
+pm2 reload ppulse
+запуска
+npm run build
+cp -R public .next/standalone/
+cp -R .next/static .next/standalone/.next/
+pm2 delete ppulse
+pm2 start "node .next/standalone/server.js" --name "ppulse" -- -p 3000 -H 0.0.0.0 -d .next/static
