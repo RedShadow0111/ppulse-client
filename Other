@@ -1,7 +1,18 @@
-# Коммит изменений
+#регистрация измененией 
+#отправка на гитхаб из локальной папки проекта cd ppulse/ppulse-client
 git add .
 git commit -m "Setup Next.js 15 with Docker for local development"
 git push origin feature/nextjs-docker-setup
+
+# 2!!!. Получите изменения из GitHub на сервере cd ppulse-client
+
+git pull origin main  # или ваша ветка (master/develop и т.д.)
+pm2 stop all
+npm run build
+pm2 delete all
+cp -R public .next/standalone/
+cp -R .next/static .next/standalone/.next/
+pm2 start "node .next/standalone/server.js" --name "ppulse" -- -p 3000 -H 0.0.0.0 -d .next/static
 
 # Собираем и запускаем контейнер
 docker-compose up --build
@@ -23,8 +34,7 @@ git clone git@github.com:RedShadow0111/ppulse-client.git
 # 1. Перейдите в папку проекта
 cd ppulse-client
 
-# 2. Получите изменения из GitHub
-git pull origin main  # или ваша ветка (master/develop и т.д.)
+
 
 # 3. Установите зависимости (если нужно)
 npm install  # или yarn, pnpm
