@@ -1,0 +1,20 @@
+# Коммит изменений
+git add .
+git commit -m "Setup Next.js 15 with Docker for local development"
+git push origin feature/nextjs-docker-setup
+
+# Собираем и запускаем контейнер
+docker-compose up --build
+
+# Или для разработки с hot-reload
+docker-compose up
+
+# на сервере Сохраняем текущие процессы  
+pm2 save
+
+# Настраиваем автозагрузку  
+pm2 startup
+
+# (Если команда выше предлагает команду для запуска, выполните её)
+
+git clone git@github.com:RedShadow0111/ppulse-client.git
